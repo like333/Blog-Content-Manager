@@ -3,8 +3,12 @@ const home = require('./route/home')
 const admin = require('./route/admin')
 const path  =require('path')
 
+// 数据库链接
+require('./model/connect')
+
 //创建服务器
 const app = express()
+
 
 //开放静态资源文件
 app.use(express.static(__dirname + '/public'))
