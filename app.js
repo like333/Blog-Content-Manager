@@ -11,7 +11,6 @@ require('./model/connect')
 //创建服务器
 const app = express()
 
-
 // 拦截所有请求添加session方法
 app.use(session({secret:'secret key',resave:false,saveUninitialized:true}))
 
@@ -27,6 +26,15 @@ app.engine('art',require('express-art-template'))
 app.set('views',path.join(__dirname,'views'))
 // 配置默认模板后缀
 app.set('view engine','art')
+
+// 拦截请求判断用户登录状态
+app.use('/admin',(req,res,next) => {
+    if(req.url !== '/login' && !req.session.username){
+        res.redirect('/admin/login')
+    }else{
+        next()
+    }
+})
 
 
 // 为路由匹配路径
