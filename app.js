@@ -2,6 +2,8 @@ const express = require('express')
 const home = require('./route/home')
 const admin = require('./route/admin')
 const path  =require('path')
+const bodyParser = require('body-parser')
+const session = require('express-session')
 
 // 数据库链接
 require('./model/connect')
@@ -9,6 +11,12 @@ require('./model/connect')
 //创建服务器
 const app = express()
 
+
+// 拦截所有请求添加session方法
+app.use(session({secret:'secret key',resave:false,saveUninitialized:true}))
+
+// 拦截所有请求处理post请求参数
+app.use(bodyParser.urlencoded({extended:false}))
 
 //开放静态资源文件
 app.use(express.static(__dirname + '/public'))
