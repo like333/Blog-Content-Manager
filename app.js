@@ -28,13 +28,7 @@ app.set('views',path.join(__dirname,'views'))
 app.set('view engine','art')
 
 // 拦截请求判断用户登录状态
-app.use('/admin',(req,res,next) => {
-    if(req.url !== '/login' && !req.session.username){
-        res.redirect('/admin/login')
-    }else{
-        next()
-    }
-})
+app.use('/admin',require('./middleware/loginGuard'))
 
 
 // 为路由匹配路径
