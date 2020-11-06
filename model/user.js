@@ -1,6 +1,7 @@
 // 创建用户集合
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
+const Joi = require('joi')
 
 const userSchema = new mongoose.Schema ({
     username: { type:String, reauired:true, minlength:2, maxlength:18 },
@@ -34,6 +35,31 @@ async function createUser(){
 
 // createUser();
 
+const userValidete = user => {
+    const schema = Joi.object({
+        username: Joi.string()
+            .min(2)
+            .max(12)
+            .required(),
+    
+        email: Joi.string()
+            .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+    
+        password: Joi.string()
+            .pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    
+        role: Joi.string()
+            .valid('normal', 'admin')
+            .required(),
+    
+        state: Joi.number()
+            .valid(0, 1)
+            .required()
+    })
+    return schema.validateAsync(user)
+}
+
 module.exports = {
-    User
+    User,
+    userValidete
 }

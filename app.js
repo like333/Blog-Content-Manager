@@ -14,7 +14,7 @@ const app = express()
 // 拦截所有请求添加session方法
 app.use(session({secret:'secret key',resave:false,saveUninitialized:true}))
 
-// 拦截所有请求处理post请求参数
+// 拦截所有请求处理post请求参数，添加req.body
 app.use(bodyParser.urlencoded({extended:false}))
 
 //开放静态资源文件
@@ -35,7 +35,12 @@ app.use('/admin',require('./middleware/loginGuard'))
 app.use('/home',home)
 app.use('/admin',admin)
 
-
+// 错误处理中间件
+app.use( ( err, req, res, next) => {
+     // 重定向回某个页面,将错误信息添加到地址栏参数中
+     const result = JSON.parse(err)
+     return res.redirect(`${result.path}?msg=${result.msg}`)
+})
 
 const server = app.listen(80,()=>{
     console.log('网站服务器启动成功，请访问localhost',server.address().port)
