@@ -1,7 +1,6 @@
 // user-add新增用户 post
 const bcrypt = require('bcrypt')
 const {User, userValidete} = require('../../model/user');
-const e = require('express');
 
 
 async function addSuccess(req, res,next) {
