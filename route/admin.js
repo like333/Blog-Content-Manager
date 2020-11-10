@@ -18,6 +18,7 @@ admin.get('/logout',require('./admin/logout'))
 admin.get('/user-edit',require('./admin/user-add-page'))
 
 // 添加新用户
-admin.post('/user-edit',require('./admin/user-add'))
-
+admin.post('/user-add',require('./admin/user-add'))
+// 修改用户
+admin.post('/user-edit',require('./admin/user-edit'))
 module.exports = admin

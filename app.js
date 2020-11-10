@@ -4,6 +4,7 @@ const admin = require('./route/admin')
 const path  =require('path')
 const bodyParser = require('body-parser')
 const session = require('express-session')
+const { format } = require('path')
 
 // 数据库链接
 require('./model/connect')
@@ -39,7 +40,13 @@ app.use('/admin',admin)
 app.use( ( err, req, res, next) => {
      // 重定向回某个页面,将错误信息添加到地址栏参数中
      const result = JSON.parse(err)
-     return res.redirect(`${result.path}?msg=${result.msg}`)
+     let params = []
+     for(let attr in result){
+       if(attr !== 'path'){
+           params.push(attr + "=" + result[attr])
+       }
+     }
+     return res.redirect(`${result.path}?${params.join('&')}`)
 })
 
 const server = app.listen(80,()=>{
