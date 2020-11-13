@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt')
-
 /**
  * 
  * @param {要进行加密的密码} pwd 
@@ -15,7 +14,8 @@ async function hash(pwd){
  * @param {数据库中加密的密码} hashPwd 
  */
 async function hashCompare(pwd,hashPwd){
-    return await bcrypt.compare(pwd,hashPwd)
+    let isValid =  await bcrypt.compare(pwd,hashPwd)
+    console.log(isValid)
 }
 
 module.exports = {

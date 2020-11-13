@@ -5,6 +5,12 @@ const path  =require('path')
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const { format } = require('path')
+const template = require('art-template')
+const dateFormat = require('dateformat')
+
+console.log(process.env.NODE_ENV)
+//为模板引擎配置日期处理方法
+template.defaults.imports.dateFormat = dateFormat
 
 // 数据库链接
 require('./model/connect')
