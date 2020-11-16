@@ -7,16 +7,26 @@ const session = require('express-session')
 const { format } = require('path')
 const template = require('art-template')
 const dateFormat = require('dateformat')
+const morgan = require('morgan')
+const config = require('config')
 
-console.log(process.env.NODE_ENV)
+//创建服务器
+const app = express()
+
+if(process.env.NODE_ENV === "pro"){
+  console.log('当前环境是生产环境')
+
+}else if(process.env.NODE_ENV === "dev"){
+  console.log('当前环境是开发环境')
+  app.use(morgan('dev'))
+}
 //为模板引擎配置日期处理方法
 template.defaults.imports.dateFormat = dateFormat
 
 // 数据库链接
 require('./model/connect')
 
-//创建服务器
-const app = express()
+
 
 // 拦截所有请求添加session方法
 app.use(session({secret:'secret key',resave:false,saveUninitialized:true}))
