@@ -29,7 +29,14 @@ require('./model/connect')
 
 
 // 拦截所有请求添加session方法
-app.use(session({secret:'secret key',resave:false,saveUninitialized:true}))
+app.use(session({
+  secret:'secret key',
+  resave:false,
+  saveUninitialized:false,
+  cookie:{
+    maxAge:24 * 60 * 60 * 1000
+  }
+}))
 
 // 拦截所有请求处理post请求参数，添加req.body
 app.use(bodyParser.urlencoded({extended:false}))

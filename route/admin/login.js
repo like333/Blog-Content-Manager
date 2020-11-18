@@ -11,9 +11,18 @@ module.exports = async (req,res) => {
         let user = await User.findOne({email})
     
         function loginSuccess(){
+            // 登录成功
+            // 将用户名存储在请求对象中
             req.session.username = user.username
+            // 将用户角色存储在session中
+            req.session.role = user.role
             req.app.locals.userInfo = user
-            res.redirect('/admin/user')
+            // 对用户的角色进行判断
+            if(user.role === 'admin'){
+                res.redirect('/admin/user')
+            }else{
+                res.redirect('/home/')
+            }
         }
         function error(errorMsg){
             res.status(400).render('admin/error.art',{msg:errorMsg})

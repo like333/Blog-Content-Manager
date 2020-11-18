@@ -11,7 +11,6 @@ module.exports = async (req,res) => {
     }
     
     let result = await P(Article).page(curPage).size(4).display(5).find().exec()
-    console.log(author)
     res.render('home/default.art',{
         result:result,
         author:author
