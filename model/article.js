@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const { User } = require('./user');
+
 
 const articleSchema = new mongoose.Schema({
     title:{
         type:String,
         minlength:2,
-        maxlength:20,
+        maxlength:40,
         required:[true,'请填写文章标题']
     },
     publishedDate:{

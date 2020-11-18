@@ -55,14 +55,19 @@ app.use('/admin',admin)
 // 错误处理中间件
 app.use( ( err, req, res, next) => {
      // 重定向回某个页面,将错误信息添加到地址栏参数中
-     const result = JSON.parse(err)
-     let params = []
-     for(let attr in result){
-       if(attr !== 'path'){
-           params.push(attr + "=" + result[attr])
-       }
+     if(typeof err === String){
+      const result = JSON.parse(err)
+      let params = []
+      for(let attr in result){
+        if(attr !== 'path'){
+            params.push(attr + "=" + result[attr])
+        }
+      }
+      return res.redirect(`${result.path}?${params.join('&')}`)
+     }else{
+       res.send(err)
      }
-     return res.redirect(`${result.path}?${params.join('&')}`)
+    
 })
 
 const server = app.listen(80,()=>{
