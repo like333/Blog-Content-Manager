@@ -1,6 +1,12 @@
 #### 项目运行
 - npm install
 - node app.js
+- 访问：http://localhost/admin/login 
+- 超级管理员：uhb@qq.com 密码：123456
+- 普通用户：zzn@vin.com 密码:123456
+- 管理员地址 http://localhost/admin/user 
+- 文章地址 http://localhost/home
+- 文章编辑，删除未实现 
 #### 项目环境搭建
 > 案例初始化
 1. 建立项目所需文件夹
